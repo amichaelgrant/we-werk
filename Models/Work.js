@@ -1,15 +1,14 @@
 /**
- * User.js
- * @description Contains user related functions for managing user instances across
- * the entire application
+ * Work.js
+ * @description Work instance management methods
  * @author Michael Grant<ulermod@gmail.com>
  * @date July 2017
  */
-var debug= require('debug')('Werk:Model-User');
+var debug= require('debug')('Werk:Model-Work');
 var uuid = require('uuid');
 var b = require('bcrypt-nodejs');
 var sq = global.sq;
-var User = global.DB.collection('User');
+var DB = global.DB.collection('User');
 var Types = { individual: 'individual', organisation: 'organisation'};
 var States = { active: 'active', inactive: 'inactive' };
 
@@ -67,7 +66,7 @@ exports.Create = function(Data, User, Callback){
         user.PhoneNumber                = Data.PhoneNumber;
     };
 
-    User.insert(user, function(err, result){
+    DB.insert(user, function(err, result){
         debug('Create# ', err, result);
         if(!err && result){
             sq.PushEvent("New-User-Created", user);
@@ -91,7 +90,7 @@ exports.Fetch = function(Id, User, Callback){
     }catch(exx){
         return Callback(exx);
     };
-    User.findOne({ Id: Id}, {}, function(err, user){
+    DB.findOne({ Id: Id}, {}, function(err, user){
         debug('Fetch# ', err, user);
         return Callback(err, user);
     });
@@ -119,7 +118,7 @@ exports.Update = function(Id, Data, User, Callback){
     if(Object.keys(updata['$set']).length === 0 )
         return Callback( new Error("Nothing to update"));
 
-    User.findAndModify(
+    DB.findAndModify(
         { Id: Id},
         [['_id', 'desc']],
         updata,
@@ -144,7 +143,7 @@ exports.Delete = function(Id, User, Callback){
     }catch(exx){
         return Callback(exx);
     };
-    User.remove({ Id: Id}, function(err, user){
+    DB.remove({ Id: Id}, function(err, user){
         debug('Delete# ', err, user);
         return Callback(err, user);
     });
@@ -224,96 +223,4 @@ exports.Search = function(Query, User, Callback){
             return Callback(err, { items: result, size:size, page: Page, prev: Prev, next: Next, nopages: NoPages, SearchText: Data.SearchText  });
         });
     });
-};
-
-
-/**
- * @description Initiates Password reset sequence
- * @param {String}
- * @param {Object}
- * @param {Function}
- * @return Returns fetched user object
- */
-exports.ResetPassword = function(Data, User, Callback){
-    try{
-        if(!Data) throw new Error("Data is required!");
-        if(!Data.Email) throw new Error("Email is required!");
-    }catch(exx){
-        return Callback(exx);
-    };
-    User.findAndModify(
-        { Id: Id}, 
-        [['_id', 'desc']],
-        {
-            $set: { 
-                ResetInitiated: moment.utc().valueOf(),
-                ResetId : uuid.v4()
-            }
-        },
-        { new : true },
-        function(err, user){
-            debug('DoActualResetPassword# ', err, user);
-            if(!err && user && user.value){
-                sq.PushEvent('Password-Reset-Initiated', user.value);
-            };
-            return Callback(err, user);
-        }
-    );
-};
-/**
- * @description Uses reset id to fetch and user instance for processing
- * @param {String}
- * @param {Object}
- * @param {Function}
- * @return Returns fetched user object
- */
-exports.ProcessResetPassword = function(Id, User, Callback){
-    try{
-        if(!Id) throw new Error("Id is required!");
-    }catch(exx){
-        return Callback(exx);
-    };
-    User.findOne(
-        { ResetId: Id}, 
-        {},
-        function(err, user){
-            debug('DoActualResetPassword# ', err, user);
-            return Callback(err, user);
-        }
-    );
-};
-/**
- * @description Final stage of password reset
- * @param {Object}
- * @param {Object}
- * @param {Function}
- * @return Returns fetched user object
- */
-exports.DoActualResetPassword = function(Data, User, Callback){
-    try{
-        if(!Data) throw new Error("Data is required!");
-        if(!Data.Email) throw new Error("Email is required!");
-        if(!Data.Password) throw new Error("Password is required!");
-    }catch(exx){
-        return Callback(exx);
-    };
-    User.findAndModify(
-        { Email:  Data.Email }, 
-        [['_id', 'desc']],
-        { 
-            $set: {
-                Password: b.hashSync(Data.Password),
-                ResetId : null,
-                ResetCompleted: moment.utc().valueOf()
-            }
-        },
-        {new: true},
-        function(err, user){
-            debug('DoActualResetPassword# ', err, user);
-            if(!err && user && user.value){
-                sq.PushEvent("Password-Reset-Completed", user.value);
-            };
-            return Callback(err, user);
-        }
-    );
 };
