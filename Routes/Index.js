@@ -12,6 +12,8 @@ router.get('/', function(req, res, next) {
 /** */
 router.get('/account', secure, function(req, res, next) {
   res.setHeader("Cache-Control", "private, no-cache, no-store, must-revalidate");
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
   res.render('Account', { title: 'My Account' });
 });
 router.get('/account/session', secure, function(req, res, next){
