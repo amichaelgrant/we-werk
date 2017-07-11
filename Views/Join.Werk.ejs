@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title><%= locals.title %></title>
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap.custom.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  
+    <%include Nav.ejs%>
+
+    <div class="container margin-top-100">
+      <div class="row margin-top-50">
+          <div class="col-sm-12 col-md-12">
+              <div class="form-center">
+
+                <form class="form-sm" id="individual" action="/join/werk" method="post">
+                    <input type="hidden" name="Type" value="individual"/>
+                    <p class="semi-bold-text" style="margin-bottom:30px; margin-top:30px;">Apply to join the Werkforce</p>
+                    
+                    <%if(locals.error){%>
+                        <div class="alert alert-danger"><%=locals.error.message%></div>
+                    <%}%>
+                    
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="Firstname" placeholder="First name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="Lastname" placeholder="Last name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control input-lg" name="Email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control input-lg" name="Password" placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="LinkedInUrl" placeholder="LinkedIn URL" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="MostRecentEmployer" placeholder="Most recent employer" required>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control input-lg" name="HighestEducationReceived" required>
+                            <option value="Bachelor">Bachelor's Degree</option>
+                            <option value="Master">Master's Degree</option>
+                            <option value="MBA">Master of Business Administration</option>
+                            <option value="JD">Juris Doctor</option>
+                            <option value="MD">Doctor of Medicine</option>
+                            <option value="Phd">Doctor of Philosophy</option>
+                            <option value="Other">Other</option>
+                        </select>   
+                    </div>
+
+                    <div class="center-120">
+                        <button type="submit" class="btn btn-lg">APPLY</button>
+                    </div>
+
+                    <div class="form-group margin-top-25">
+                        By applying you agree to our <a href="/terms/of/use">Terms of Service</a> and <a href="/privacy/policy">Privacy Policy</a>
+                    </div>
+                </form>      
+                
+              </div>
+          </div>
+      </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    
+  </body>
+</html>

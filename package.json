@@ -1,0 +1,42 @@
+{
+  "name": "Werk",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "DEBUG=Werk:* node HttpServer.js",
+    "worker": "DEBUG=Werk:* node BackGroundWorker.js"
+  },
+  "dependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2016": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babelify": "^7.3.0",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "~1.0.0",
+    "browserify": "^14.4.0",
+    "connect-flash": "^0.1.1",
+    "connect-redis": "^3.3.0",
+    "cookie-parser": "~1.0.1",
+    "deasync": "^0.1.10",
+    "debug": "~0.7.4",
+    "ejs": "~0.8.5",
+    "express": "~4.0.0",
+    "express-session": "^1.15.3",
+    "gulp": "^3.9.1",
+    "moment": "^2.18.1",
+    "mongodb": "^2.2.30",
+    "morgan": "~1.0.0",
+    "nodemailer": "^4.0.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "query-string": "^4.3.4",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "redis": "^2.7.1",
+    "request": "^2.81.0",
+    "static-favicon": "~1.0.0",
+    "uuid": "^3.1.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

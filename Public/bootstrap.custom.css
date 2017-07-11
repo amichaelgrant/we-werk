@@ -1,0 +1,153 @@
+.navbar-default {
+    background-color: #fff;
+    border-color: #e7e7e7;
+}
+.navbar-default .navbar-nav>li>a{
+    font-size: 120%;
+    font-weight: bold;
+}
+
+.navbar-default .navbar-brand {
+    color: #777;
+    font-size: 300%;
+    font-weight: bold;
+}
+
+/*@media (min-width: 768px){
+    .container {
+        width: 750px;
+    }
+}*/
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.form-control{
+    border-radius: 1px;
+}
+.btn{
+    border-radius: 1px;
+    border-width: 2px;
+}
+.btn-default {
+    font-weight: bold;
+    color: #333;
+    background-color: #fff;
+    border-color: #000;
+}
+
+.margin-top-100{
+    margin-top: 80px;
+}
+.margin-top-50{
+    margin-top: 50px;
+}
+.margin-top-25{
+    margin-top: 25px;
+}
+.bold-text{
+    font-size: 300%;
+    font-weight: bold;
+}
+.semi-bold-text{
+    font-size: 130%;
+}
+.center-120{
+    margin-left: auto;
+    margin-right: auto;
+    width: 120px;
+}
+.center-200{
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+}
+.center-360{
+    margin-left: auto;
+    margin-right: auto;
+    width: 360px;
+}
+.center-600{
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+}
+/*
+.nav-tabs {
+    border-bottom: 1px solid #ddd;
+    display: table;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.nav-tabs>li {
+    float: left;
+    margin-bottom: -1px;
+    display: table-cell;
+    width: 50%;
+}
+.nav>li>a{
+    padding: 25px 25px;
+    color: #666;
+    font-weight: bold;
+}
+.tab-content{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f8f8f8;
+    padding: 50px 80px 80px 50px;
+}
+
+.nav-tabs>li>a {
+    border: 1px solid transparent;
+    border-radius: 1px 1px 0 0; 
+    
+}
+.nav-tabs>li>a:active{
+    background-color: #f8f8f8;
+}
+
+.nav-tabs>li.active>a{
+    background-color: #f8f8f8;
+}
+.nav .nav-tabs>li a:active{
+    background-color: #f8f8f8;
+}
+*/
+
+.form-center{
+    padding-top: 1px;
+    background-color: #f8f8f8;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.form-sm{
+    /*width: 460px;*/
+    /*margin-left: auto;
+    margin-right: auto;*/
+    margin: 55px;
+    padding-bottom: 30px;
+}
+.nav-tabs>li>a {
+    border-radius: 1px 1px 0 0; 
+    padding: 16px;
+    color: #444;
+    font-weight: bold;
+}
+
+.form-sign-in{
+    margin-top:200px;
+    width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.alert {
+    padding: 10px;
+    border-radius: 1px; 
+}
