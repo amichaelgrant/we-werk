@@ -162,10 +162,51 @@
     font-size: 140%;
 }
 
-.job-group{
+.dropdown-menu>li>a {
+    font-size: 150%;
+}
 
+.job-group{
+    border: thin solid #e7e7e7;
 }
 .job-item{
-    border: thin solid #e7e7e7;
+    border-bottom: thin solid #e7e7e7;
     padding: 10px;
+}
+
+.job-property{
+    background-color: #eee;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+
+.job-remote{
+    background-color: #FF5733;
+    width: 30px;
+    height: 30px;
+}
+.job-desk-plus{
+    background-color: #F4D03F;
+    width: 30px;
+    height: 30px;
+}
+.job-travel-lite{
+    background-color: #34495E;
+    width: 30px;
+    height: 30px;
+}
+.job-time-shift{
+    background-color: #2ECC71;
+    width: 30px;
+    height: 30px;
+}
+.job-micro-agility{
+    background-color: #76448A;
+    width: 30px;
+    height: 30px;
+}
+.job-part-time{
+    background-color: #C0392B;
+    width: 30px;
+    height: 30px;
 }

@@ -6,8 +6,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Axio from './Axio';
+import { Register, Emit } from './Router';
 import WorkCreate from './WorkCreate';
 import WorkList from './WorkList';
+import WorkView from './WorkView';
+
 
 import Debug from 'debug';
 var debug = Debug('Werk:Account.jsx');
@@ -40,11 +43,16 @@ class Account extends React.Component{
         ReactDOM.render(<WorkList />, this.refs.mntPoint);
     }
     listMyJobs(e){
-
+        ReactDOM.unmountComponentAtNode(this.refs.mntPoint);
+        ReactDOM.render(<MyWorkList />, this.refs.mntPoint);
     }
 
     componentDidMount(){
         this.loadUserInstance();
+
+        Register(WorkCreate, "event.work.create", this.refs.mntPoint);
+        Register(WorkList,   "event.work.list", this.refs.mntPoint);
+        Register(WorkView,   "event.work.view", this.refs.mntPoint);
     }
     render(){
         var userString = (this.state.userInstance && this.state.userInstance.Email)? this.state.userInstance.Email : '';
@@ -65,18 +73,6 @@ class Account extends React.Component{
                         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul className="nav navbar-nav">
                                 <li><a href="#" onClick={this.listJobs}>Jobs</a></li>
-                                <li className="dropdown">
-                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span className="caret"></span></a>
-                                <ul className="dropdown-menu">
-                                    <li><a href="#">Item 1</a></li>
-                                    <li><a href="#">Item 2</a></li>
-                                    <li><a href="#">Item 3</a></li>
-                                    <li role="separator" className="divider"></li>
-                                    <li><a href="#">Item 4</a></li>
-                                    <li role="separator" className="divider"></li>
-                                    <li><a href="#">Item 5</a></li>
-                                </ul>
-                                </li>
                             </ul>
                             <form className="navbar-form navbar-left">
                                 <div className="form-group">
@@ -90,7 +86,7 @@ class Account extends React.Component{
                                 <li className="dropdown">
                                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{userString} <span className="caret"></span></a>
                                 <ul className="dropdown-menu">
-                                    <li><a href="#">Profile</a></li>
+                                    <li><a href="#">Account</a></li>
                                     <li><a href="#">Preferences</a></li>
                                     <li role="separator" className="divider"></li>
                                     <li><a href="/logout">Log out</a></li>
@@ -108,7 +104,7 @@ class Account extends React.Component{
                     <div className="row margin-top-100">
                         <div className="col-sm-12 col-md-12">
                             <div ref="mntPoint"></div>
-                            <h1>And all the sweetness goes [here]</h1>
+                            
                         </div>
                     </div>
                 </div>
