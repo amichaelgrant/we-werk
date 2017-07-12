@@ -1,3 +1,9 @@
+/**
+ * Index.js
+ * @author Michael Grant <ulermod@gmail.com>
+ * @date July 2017
+ */
+
 var express = require('express');
 var debug  = require('debug')('Werk-Index');
 var router = express.Router();

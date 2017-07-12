@@ -1,6 +1,11 @@
+/**
+ * Job.js
+ * @author Michael Grant <ulermod@gmail.com>
+ * @date July 2017
+ */
 var express = require('express');
 var router = express.Router();
-var work = require('../Models/Work');
+var work = require('../Models/Job');
 var secure = require('../Security').Secure;
 
 function ToJson(res, err, result){
@@ -9,38 +14,38 @@ function ToJson(res, err, result){
 };
 
 /**Fetch endpoint */
-router.get('/user/:id', secure, function(req, res, next) {
+router.get('/job/:id', secure, function(req, res, next) {
     work.Fetch(req.params.id, req.user, function(err, result){
         ToJson(res, err, result );
     }); 
 });
 /**Create endpoint */
-router.post('/user', secure, function(req, res, next) {
+router.post('/job', secure, function(req, res, next) {
     work.Create(req.body, req.user, function(err, result){
         ToJson(res, err, result );
     }); 
 })
 /**Update endpoint */
-router.patch('/user/:id', secure, function(req, res, next) {
+router.patch('/job/:id', secure, function(req, res, next) {
     work.Update(req.params.id, req.body, req.user, function(err, result){
         ToJson(res, err, result );
     }); 
 })
 /**Delete endpoint */
-router.delete('/user/:id', secure, function(req, res, next) {
+router.delete('/job/:id', secure, function(req, res, next) {
     work.Delete(req.params.id, req.user, function(err, result){
         ToJson(res, err, result );
     }); 
 })
 /**List endpoint */
-router.get('/user', secure, function(req, res, next) {
-    work.List(req.params.query, req.user, function(err, result){
+router.get('/job', secure, function(req, res, next) {
+    work.List((req.params.query || {}), req.user, function(err, result){
         ToJson(res, err, result );
     }); 
 })
 /**Search endpoint */
-router.post('/user/search', secure, function(req, res, next) {
-    work.Search(req.params.query, req.user, function(err, result){
+router.post('/job/search', secure, function(req, res, next) {
+    work.Search((req.params.query || {}), req.user, function(err, result){
         ToJson(res, err, result );
     }); 
 });

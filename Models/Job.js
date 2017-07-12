@@ -1,18 +1,26 @@
 /**
- * Work.js
- * @description Work instance management methods
+ * Job.js
+ * @description Job instance management methods
  * @author Michael Grant<ulermod@gmail.com>
  * @date July 2017
  */
-var debug= require('debug')('Werk:Model-Work');
+var debug= require('debug')('Werk:Model-Job');
 var uuid = require('uuid');
 var b = require('bcrypt-nodejs');
+var moment = require('moment');
 var sq = global.sq;
-var DB = global.DB.collection('User');
-var Types = { individual: 'individual', organisation: 'organisation'};
+var DB = global.DB.collection('Job');
+var Types = { 
+    Remote:         'Remote', 
+    DeskPlus:       'DeskPlus',
+    TravelLite:     'TravelLite',
+    TimeShift:      'TimeShift',
+    MicroAgility:   'MicroAgility',
+    PartTime:       'PartTime'
+};
 var States = { active: 'active', inactive: 'inactive' };
 
-
+function QModifier(q){ return q};
 
 /**
  * @description Creates a new user instances
@@ -23,55 +31,33 @@ var States = { active: 'active', inactive: 'inactive' };
  */
 exports.Create = function(Data, User, Callback){
     try{
-        if(!Data) throw new Error("Input data is required!");
-        if(!Data.Type) throw new Error("Type is required!");
-        if(!Types[Data.Type]) throw new Error("Type must contain a valid value!");
+        debug('Create#input# ', Data);
+        if(!Data) throw new Error("Input data is required!");      
 
-        if(!Data.Email) throw new Error("Type is required!");
-        if(!Data.Password) throw new Error("Type is required!");
-        if(!Data.Firstname) throw new Error("Type is required!");
-        if(!Data.Lastname) throw new Error("Type is required!");
+        if(!Data.Title) throw new Error("Title is required!");
+        if(!Data.Description) throw new Error("Description is required!");
+        if(!Data.Location) throw new Error("Location is required!");
 
-        if(Data.Type === Types.individual){
-            if(!Data.LinkedInUrl) throw new Error("LinkedInUrl is required!");
-            if(!Data.MostRecentEmployer) throw new Error("MostRecentEmployer is required!");
-            if(!Data.HighestEducationReceived) throw new Error("HighestEducationReceived is required!");
-        }else if(Data.Type === Types.organisation){
-            if(!Data.CompanyName) throw new Error("CompanyName is required!");
-            if(!Data.Title) throw new Error("Title is required!");
-            if(!Data.PhoneNumber) throw new Error("PhoneNumber is required!");
-        }
     }catch(exx){
         return Callback(exx);
     };
 
+    var job        = {};
+    job.Id         = uuid.v4();
+    job.Created    = job.Modified = moment.utc().valueOf();
+    job.State      = States.active;
 
-    var user        = {};
-    user.Id         = uuid.v4();
-    user.Created    = user.Modified = moment.utc().valueOf();
-    user.State      = States.active;
-
-    user.Type       = Data.Type;
-    user.Email      = Data.Email;
-    user.Password   = b.hashSync(Data.Password);
-    user.Firstname  = Data.Firstname;
-    user.Lastname   = Data.Lastname;
-    if(Data.Type === Types.individual){
-        user.LinkedInUrl                = Data.LinkedInUrl;
-        user.MostRecentEmployer         = Data.MostRecentEmployer;
-        user.HighestEducationReceived   = Data.HighestEducationReceived;
-    }else if(Data.Type === Types.organisation){
-        user.CompanyName                = Data.CompanyName;
-        user.Title                      = Data.Title;
-        user.PhoneNumber                = Data.PhoneNumber;
-    };
-
-    DB.insert(user, function(err, result){
+    job.Type       = Data.Type;
+    job.Title      = Data.Title;
+    job.Description= Data.Description;
+    job.Location   = Data.Location;
+    
+    DB.insert(job, function(err, result){
         debug('Create# ', err, result);
         if(!err && result){
-            sq.PushEvent("New-User-Created", user);
+            sq.PushEvent("New-Job-Created", job);
         };
-        return Callback(err, user);
+        return Callback(err, job);
     });
 };
 
@@ -158,7 +144,7 @@ exports.Delete = function(Id, User, Callback){
  */
 exports.List = function(Query, User, Callback){
     try{
-        debug('List#Input# ', Data);
+        debug('List#Input# ', Query);
         if(!Query) throw new Error("Query is required");
         if(Query.Page) Data.Page = ToInt(Query.Page);
         else Query.Page = 0;

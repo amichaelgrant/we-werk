@@ -1,6 +1,18 @@
+/**
+ * Account.jsx
+ * @author Michael Grant <ulermod@gmail.com>
+ * @date July 2017
+ */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Axio from './Axio';
+import WorkCreate from './WorkCreate';
+import WorkList from './WorkList';
+
+import Debug from 'debug';
+var debug = Debug('Werk:Account.jsx');
+
+window.localStorage.debug = 'Werk:*';
 
 class Account extends React.Component{
     constructor(props){
@@ -8,6 +20,9 @@ class Account extends React.Component{
         this.state = {};
 
         this.loadUserInstance = this.loadUserInstance.bind(this);
+        this.createJob        = this.createJob.bind(this);
+        this.listJobs         = this.listJobs.bind(this);
+        this.listMyJobs       = this.listMyJobs.bind(this);
     }
 
     loadUserInstance(){
@@ -15,6 +30,17 @@ class Account extends React.Component{
             console.log(err, result);
             this.setState({ userInstance: result });
         }.bind(this));
+    }
+    createJob(e){
+        ReactDOM.unmountComponentAtNode(this.refs.mntPoint);
+        ReactDOM.render(<WorkCreate />, this.refs.mntPoint);
+    }
+    listJobs(e){
+        ReactDOM.unmountComponentAtNode(this.refs.mntPoint);
+        ReactDOM.render(<WorkList />, this.refs.mntPoint);
+    }
+    listMyJobs(e){
+
     }
 
     componentDidMount(){
@@ -37,39 +63,43 @@ class Account extends React.Component{
                         <a className="navbar-brand" href="#">Werk</a>
                         </div>
                         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul className="nav navbar-nav">
+                            <ul className="nav navbar-nav">
+                                <li><a href="#" onClick={this.listJobs}>Jobs</a></li>
+                                <li className="dropdown">
+                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span className="caret"></span></a>
+                                <ul className="dropdown-menu">
+                                    <li><a href="#">Item 1</a></li>
+                                    <li><a href="#">Item 2</a></li>
+                                    <li><a href="#">Item 3</a></li>
+                                    <li role="separator" className="divider"></li>
+                                    <li><a href="#">Item 4</a></li>
+                                    <li role="separator" className="divider"></li>
+                                    <li><a href="#">Item 5</a></li>
+                                </ul>
+                                </li>
+                            </ul>
+                            <form className="navbar-form navbar-left">
+                                <div className="form-group">
+                                <input type="text" className="form-control" placeholder="Search" />
+                                </div>
+                                <button type="submit" className="btn btn-default">Go</button>
+                            </form>
                             
-                            <li className="dropdown">
-                            <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span className="caret"></span></a>
-                            <ul className="dropdown-menu">
-                                <li><a href="#">Item 1</a></li>
-                                <li><a href="#">Item 2</a></li>
-                                <li><a href="#">Item 3</a></li>
-                                <li role="separator" className="divider"></li>
-                                <li><a href="#">Item 4</a></li>
-                                <li role="separator" className="divider"></li>
-                                <li><a href="#">Item 5</a></li>
+                            <ul className="nav navbar-nav navbar-right">
+                                <li><a href="#" onClick={this.listMyJobs}>My Jobs</a></li>
+                                <li className="dropdown">
+                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{userString} <span className="caret"></span></a>
+                                <ul className="dropdown-menu">
+                                    <li><a href="#">Profile</a></li>
+                                    <li><a href="#">Preferences</a></li>
+                                    <li role="separator" className="divider"></li>
+                                    <li><a href="/logout">Log out</a></li>
+                                </ul>
+                                </li>
                             </ul>
-                            </li>
-                        </ul>
-                        <form className="navbar-form navbar-left">
-                            <div className="form-group">
-                            <input type="text" className="form-control" placeholder="Search" />
-                            </div>
-                            <button type="submit" className="btn btn-default">Submit</button>
-                        </form>
-                        <ul className="nav navbar-nav navbar-right">
-                            <li><a href="#">Messages</a></li>
-                            <li className="dropdown">
-                            <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{userString} <span className="caret"></span></a>
-                            <ul className="dropdown-menu">
-                                <li><a href="#">Profile</a></li>
-                                <li><a href="#">Preferences</a></li>
-                                <li role="separator" className="divider"></li>
-                                <li><a href="/logout">Log out</a></li>
-                            </ul>
-                            </li>
-                        </ul>
+                            <form className="navbar-form navbar-right">
+                                <a href="#" className="btn btn-default" onClick={this.createJob}>Create</a>
+                            </form>
                         </div>
                     </div>
                 </nav>

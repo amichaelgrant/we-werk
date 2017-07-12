@@ -1,3 +1,8 @@
+/**
+ * Axio.js
+ * @author Michael Grant <ulermod@gmail.com>
+ * @date July 2017
+ */
 import request from 'request';
 import qstring from 'query-string';
 import Debug from 'debug';
@@ -24,7 +29,7 @@ export default function(method, url, data, callback){
         debug('RESPONSE### ', body);
         if(statusCode === 401) window.location.replace('/sign/in');
         else if(statusCode === 403) alert("Error: " + body);
-        else if( statusCode === 500) alert('Error: ', body);
+        else if( statusCode === 500) alert("Error: " + body);
         
         return callback(err, body);
     });

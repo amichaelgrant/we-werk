@@ -1,3 +1,8 @@
+/**
+ * User.js
+ * @author Michael Grant <ulermod@gmail.com>
+ * @date July 2017
+ */
 var express = require('express');
 var router = express.Router();
 var user = require('../Models/User');
