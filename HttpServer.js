@@ -1,3 +1,8 @@
+/**
+ * HttpServer.js
+ * @author Michael Grant <ulermod@gmail.com>
+ * @date July 2017
+ */
 var debug = require('debug')('Werk:HttpServer');
 global.config = require('./Configuration');
 require('./Connection')();
@@ -87,7 +92,7 @@ function(req, res, next){
 app.use('/', router);
 
 app.use('/',  require('./Routes/User'));
-app.use('/',  require('./Routes/Work'));
+app.use('/',  require('./Routes/Job'));
 
 
 /// catch 404 and forwarding to error handler

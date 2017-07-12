@@ -151,3 +151,21 @@
     padding: 10px;
     border-radius: 1px; 
 }
+
+.modal-content {
+    background-color: #f8f8f8;
+    border-radius: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.form-control {
+    font-size: 140%;
+}
+
+.job-group{
+
+}
+.job-item{
+    border: thin solid #e7e7e7;
+    padding: 10px;
+}

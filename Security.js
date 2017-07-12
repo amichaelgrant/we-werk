@@ -1,6 +1,8 @@
 /**
  * Security.js
  * @description Site security functions
+ * @author Michael Grant <ulermod@gmail.com>
+ * @date July 2017
  */
 var debug = require('debug')('Werk:Security');
 

@@ -1,3 +1,8 @@
+/**
+ * SimpleQueue.js
+ * @author Michael Grant <ulermod@gmail.com>
+ * @date July 2017
+ */
 var debug = require('debug')('Werk:SimpleQueue');
 var redis = require('redis');
 var uuidv4= require('uuid').v4;

@@ -1,3 +1,8 @@
+/**
+ * Connection.js
+ * @author Michael Grant <ulermod@gmail.com>
+ * @date July 2017
+ */
 var debug = require('debug')('Werk:Connection');
 var MongoClient = require('mongodb').MongoClient;
 var deasync = require('deasync');
